@@ -1,4 +1,4 @@
-# Discord bot do biscoito
+# Discord - Bot do biscoito
 
 Este é um bot do Discord que dá biscoito.
 
