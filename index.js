@@ -33,21 +33,39 @@ client.once(Events.ClientReady, c => {
 client.login(TOKEN_BOT);
 
 //Listener
-client.on(Events.InteractionCreate, async interecation => {
-    if (!interecation.isChatInputCommand()) return;
-    const commandName = interecation.commandName;
-    const command = interecation.client.commands.get(commandName);
+client.on(Events.InteractionCreate, async interaction => {
+    if (!interaction.isChatInputCommand()) return;
+    const commandName = interaction.commandName;
+    const command = interaction.client.commands.get(commandName);
 
     if (!command) {
         console.error("Comando não encontrado")
         return
     }
     try {
-        await command.execute(interecation)
+        if (commandName === 'biscoitar') {
+            const input = interaction.options.getString('input');
+            const userId = input.match(/\d+/);
+            
+            if (userId && userId[0] === interaction.user.id) {
+                // Caso seja uma menção e a ID do usuário mencionado seja a mesma que a do autor da interação
+                await interaction.reply("Você não pode enviar um biscoito para si mesmo!");
+                return;
+              }
+              
+              if (input.toLowerCase() === interaction.user.username) {
+                // Caso seja uma string direta e seja igual ao nome de usuário do autor da interação
+                await interaction.reply("Você não pode enviar um biscoito para si mesmo!");
+                return;
+              }
+              
+          }
+
+        await command.execute(interaction)
     }
     catch(err) {
         console.error('err: ', err)
-        await interecation.reply("Ocorreu um erro ao executar esse comando!")
+        await interaction.reply("Ocorreu um erro ao executar esse comando!")
     }
 })
 
