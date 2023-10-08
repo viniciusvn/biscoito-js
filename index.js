@@ -44,8 +44,14 @@ client.on(Events.InteractionCreate, async interaction => {
     }
     try {
         if (commandName === 'biscoitar') {
-            const input = interaction.options.getString('input');
-            const userId = input.match(/\d+/);
+            const people = interaction.options.getString('people');
+            console.log('pessoas e mensagem: ', people)
+
+            if (!people) {
+                await interaction.reply("Por favor, mencione a pessoa ou pessoas que devem receber o biscoito.");
+                return;
+              }
+            const userId = people.match(/\d+/);
             
             if (userId && userId[0] === interaction.user.id) {
                 // Caso seja uma menção e a ID do usuário mencionado seja a mesma que a do autor da interação
@@ -53,7 +59,7 @@ client.on(Events.InteractionCreate, async interaction => {
                 return;
               }
               
-              if (input.toLowerCase() === interaction.user.username) {
+              if (people.toLowerCase() === interaction.user.username) {
                 // Caso seja uma string direta e seja igual ao nome de usuário do autor da interação
                 await interaction.reply("Você não pode enviar um biscoito para si mesmo!");
                 return;
