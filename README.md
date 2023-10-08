@@ -1,4 +1,4 @@
-# Discord bot do biscoito
+# Discord - Bot do biscoito
 
 Este é um bot do Discord que dá biscoito.
 
@@ -48,5 +48,7 @@ node index.js
 ### Como Usar
 Aqui estão alguns exemplos de como usar o bot no servidor do Discord:
 
+```
 /ping: O bot responde com 'Pong!'.
 /biscoitar: Mencione a pessoa usando o '@' dentro do argumento input para dar um biscoito.
+```
